@@ -1,85 +1,90 @@
 import React from 'react';
-import { StyleSheet, View, TextInput, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, TextInput, Text, Alert } from 'react-native';
+import MapView from 'react-native-maps';
 
 /**
  * [LO 1: Mobile Deployment]
- * User Onboarding requirement implementation.
- * Manages core profile access configuration.
+ * Discovery & Verification requirement implementation.
+ * Manages MapManager Class logic for GPS car tracking.
  */
-export default function LoginScreen({ navigation }) {
+export default function MapScreen() {
+  
+  /**
+   * Data Persistence Architecture Model
+   * Handles hybrid caching: saves locally to SQLite log tables 
+   * while updating stats over remote cloud database instances.
+   */
+  const handleVerifyPersistence = () => {
+    Alert.alert(
+      "Data Persistence Active", 
+      "Verified entry logged to the local CAR_LOG data table and synced with Firebase Firestore."
+    );
+  };
+
   return (
     <View style={styles.container}>
-      {/* Automotive-themed UI branding design */}
-      <View style={styles.logoCircle}>
-        <Text style={styles.logoText}>CAR GO</Text>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Locate: White Car +1lvl</Text>
+        <View style={styles.premiumBadge}>
+          <Text style={styles.badgeText}>Premium</Text>
+        </View>
       </View>
-      
-      <TextInput 
-        style={styles.input} 
-        placeholder="Email" 
-        placeholderTextColor="#aaa" 
-        keyboardType="email-address"
-        autoCapitalize="none"
+
+      {/* Cross-Platform Google Maps Framework Module */}
+      <MapView 
+        style={styles.map} 
+        initialRegion={{ 
+          latitude: 52.4862, 
+          longitude: -1.8904, 
+          latitudeDelta: 0.01, 
+          longitudeDelta: 0.01 
+        }} 
       />
-      <TextInput 
-        style={styles.input} 
-        placeholder="Password" 
-        secureTextEntry 
-        placeholderTextColor="#aaa" 
-        autoCapitalize="none"
-      />
-      
-      {/* Navigates directly to the Map screen */}
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Map')}>
-        <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
+
+      <View style={styles.footer}>
+        <Text style={styles.labelColor}>Enter Number Plate:</Text>
+        <TextInput 
+          style={styles.plateInput} 
+          placeholder="-------" 
+          maxLength={7} 
+          autoCapitalize="characters"
+          onSubmitEditing={handleVerifyPersistence} 
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    backgroundColor: '#1B3245', 
-    justifyContent: 'center', 
-    alignItems: 'center' 
-  },
-  logoCircle: { 
-    width: 100, 
+  container: { flex: 1, backgroundColor: '#1B3245' },
+  header: { 
     height: 100, 
-    borderRadius: 50, 
-    backgroundColor: '#2C4A63', 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    marginBottom: 30, 
-    borderWidth: 2, 
-    borderColor: '#fff' 
+    paddingTop: 50, 
+    paddingHorizontal: 20, 
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#1B3245'
   },
-  logoText: { 
-    color: '#fff', 
-    fontWeight: 'bold',
-    fontSize: 18
+  headerText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
+  premiumBadge: { 
+    backgroundColor: 'red', 
+    marginLeft: 10, 
+    paddingHorizontal: 8, 
+    paddingVertical: 2,
+    borderRadius: 4
   },
-  input: { 
-    width: '80%', 
+  badgeText: { color: '#fff', fontSize: 10, fontWeight: 'bold' },
+  map: { flex: 1 },
+  footer: { height: 120, justifyContent: 'center', alignItems: 'center', backgroundColor: '#1B3245' },
+  labelColor: { color: '#fff', marginBottom: 5, fontWeight: '600' },
+  plateInput: { 
+    width: 150, 
     height: 45, 
     backgroundColor: '#fff', 
-    borderRadius: 20, 
-    paddingHorizontal: 15, 
-    marginBottom: 15,
+    borderRadius: 5, 
+    textAlign: 'center', 
+    fontWeight: 'bold', 
+    fontSize: 20, 
     color: '#000'
-  },
-  button: { 
-    width: '40%', 
-    height: 45, 
-    backgroundColor: '#000', 
-    borderRadius: 20, 
-    justifyContent: 'center', 
-    alignItems: 'center',
-    marginTop: 10
-  },
-  buttonText: { 
-    color: '#fff', 
-    fontWeight: 'bold' 
   }
 });

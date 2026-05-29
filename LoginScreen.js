@@ -1,23 +1,39 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, TextInput, TouchableOpacity, Text } from 'react-native';
 
 /**
- * Regional Competition implementation.
- * Groups player rankings by city within the West Midlands region.
+ * [LO 1: Mobile Deployment]
+ * User Onboarding requirement implementation.
+ * Manages core profile access configuration.
  */
-const regions = ["Birmingham", "Coventry", "Walsall", "Wolverhampton", "Dudley"];
-
-export default function LeaderboardScreen() {
+export default function LoginScreen({ navigation }) {
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>West Midlands Rankings</Text>
-      {regions.map((city) => (
-        <View key={city} style={styles.cityCard}>
-          <Text style={styles.cityText}>{city} Top Rankings</Text>
-          <Text style={styles.arrowIcon}>▼</Text>
-        </View>
-      ))}
-    </ScrollView>
+    <View style={styles.container}>
+      {/* Automotive-themed UI branding design */}
+      <View style={styles.logoCircle}>
+        <Text style={styles.logoText}>CAR GO</Text>
+      </View>
+      
+      <TextInput 
+        style={styles.input} 
+        placeholder="Email" 
+        placeholderTextColor="#aaa" 
+        keyboardType="email-address"
+        autoCapitalize="none"
+      />
+      <TextInput 
+        style={styles.input} 
+        placeholder="Password" 
+        secureTextEntry 
+        placeholderTextColor="#aaa" 
+        autoCapitalize="none"
+      />
+      
+      {/* Navigates directly to the Map screen */}
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Map')}>
+        <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
@@ -25,31 +41,45 @@ const styles = StyleSheet.create({
   container: { 
     flex: 1, 
     backgroundColor: '#1B3245', 
-    paddingHorizontal: 20 
+    justifyContent: 'center', 
+    alignItems: 'center' 
   },
-  title: { 
+  logoCircle: { 
+    width: 100, 
+    height: 100, 
+    borderRadius: 50, 
+    backgroundColor: '#2C4A63', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    marginBottom: 30, 
+    borderWidth: 2, 
+    borderColor: '#fff' 
+  },
+  logoText: { 
     color: '#fff', 
-    fontSize: 24, 
-    fontWeight: 'bold', 
-    marginTop: 50, 
-    marginBottom: 20 
+    fontWeight: 'bold',
+    fontSize: 18
   },
-  cityCard: { 
+  input: { 
+    width: '80%', 
+    height: 45, 
     backgroundColor: '#fff', 
-    marginVertical: 8, 
-    padding: 20, 
-    borderRadius: 10, 
-    flexDirection: 'row', 
-    justifyContent: 'space-between',
-    alignItems: 'center'
+    borderRadius: 20, 
+    paddingHorizontal: 15, 
+    marginBottom: 15,
+    color: '#000'
   },
-  cityText: { 
-    fontSize: 18, 
-    fontWeight: 'bold', 
-    color: '#1B3245' 
+  button: { 
+    width: '40%', 
+    height: 45, 
+    backgroundColor: '#000', 
+    borderRadius: 20, 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    marginTop: 10
   },
-  arrowIcon: {
-    color: '#1B3245',
-    fontSize: 14
+  buttonText: { 
+    color: '#fff', 
+    fontWeight: 'bold' 
   }
 });
