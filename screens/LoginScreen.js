@@ -28,6 +28,7 @@ export default function LoginScreen({ navigation }) {
       navigation.navigate('Map');
     } catch (error) {
       console.log('Error saving data to persistence storage:', error);
+      Alert.alert("Storage Error", "Could not access local device storage.");
     }
   };
 
