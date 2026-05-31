@@ -13,11 +13,11 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install Project Dependencies
-        run: npm install
+      - name: Install Dependencies
+        run: npm install --legacy-peer-deps
 
       - name: Generate Native Android Folder
-        run: npx expo prebuild --platform android --no-install
+        run: npx expo prebuild --platform android --template blank
 
       - name: Upload Android Folder as Artifact
         uses: actions/upload-artifact@v4
